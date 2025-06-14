@@ -1,6 +1,6 @@
 #editor.py
 #madule for a simple message editor with undo and redo functionality with stack management
-form storage_maanager import StorageManager
+from storage_maanager import StorageManager
 class MessageEditor:
     def __init__(self):
         self.message = ""                                       #text of the message
