@@ -1,6 +1,6 @@
 #editor.py
 #madule for a simple message editor with undo and redo functionality with stack management
-import json
+form storage_maanager import StorageManager
 class MessageEditor:
     def __init__(self):
         self.message = ""                                       #text of the message
@@ -26,7 +26,7 @@ class MessageEditor:
         else:           
             print("Nothing to redo.")           
 
-    def dellete_last_word(self):                                #deletes the last word from the message
+    def delete_last_word(self):                                 #deletes the last word from the message
         self._save_state_for_undo()         
         words = self.message.strip().split()                    # split the message into words
         if words:           
@@ -45,23 +45,8 @@ class MessageEditor:
         self.undo_stack.append(self.message)                    # append the current message to the undo stack
 
     def save_to_file(self, filename):                           #saves the current message to a file
-        data = {                                                # dictionary of the current state
-            'message': self.message,      
-            'undo_stack': self.undo_stack,
-            'redo_stack': self.redo_stack
-        }
-        with open(filename, 'w',encoding="utf-8") as f:         #save the data to a file
-            json.dump(data, f, ensure_ascii=False,indent=2)
-        print("draft message saved! ")
+        StorageManager.save_draft(self)
 
     def load_from_file(self, filename):                         #loads the message from a file
-        try:
-            with open(filename, "r",encoding="utf-8") as f:
-                data = json.load(f)
-                self.message = data["message"]
-                self.undo_stack = data["undo_stack"]
-                self.redo_stack = data["redo_stack"]
-            print("draft message loaded! ")
-        except:
-            print("draft message not found! ")
+        StorageManager.load_draft(self)
             
