@@ -21,9 +21,9 @@ class StorageManager:
                 editor.message = data["message"]
                 editor.undo_stack = data["undo_stack"]
                 editor.redo_stack = data["redo_stack"]
-            print("پیش‌نویس پیام بارگذاری شد.")
+            print("draft loaded successfully.")
         except FileNotFoundError:
-            print("پیش‌نویسی برای بارگذاری وجود ندارد.")
+            print("no draft found to load.")
 
     @staticmethod
     def save_queue(queue_manager, filename="queue.json"):
@@ -42,6 +42,6 @@ class StorageManager:
                 for item in data:
                     msg = Message.from_dict(item)
                     queue_manager.queues[msg.priority].append(msg)
-            print("صف پیام‌ها بارگذاری شد.")
+            print("queue loaded successfully.")
         except FileNotFoundError:
-            print("صفی برای بارگذاری وجود ندارد.")
+            print("no queue found to load.")
