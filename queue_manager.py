@@ -5,9 +5,13 @@ from message import Message
 from storage_manager import StorageManager
 
 class MessageQueue:
-    def __init__(self):
-        self.queues = {i: deque() for i in range(1, 6)}  # اولویت 1 (فوری) تا 5 (پایین)
+    def __init__(self, message_callback=None):
+        self.queues = {i: deque() for i in range(1, 6)}
         self.sent_stack = []
+        self.message_callback = message_callback
+    
+    def set_callback(self, callback):
+        self.message_callback = callback
 
     def enqueue(self, text, receiver, priority="3"):
         msg = Message(text, receiver, priority)
@@ -15,9 +19,10 @@ class MessageQueue:
 
     def send_next(self, network_manager):
         if not network_manager.is_online:
-            print("you are offline. Cannot send messages.")
+            if self.message_callback:
+                self.message_callback("You are offline. Cannot send messages.")
             return
-
+        
         for pr in range(1, 6):
             if self.queues[pr]:
                 msg = self.queues[pr].popleft()
@@ -28,7 +33,8 @@ class MessageQueue:
 
     def send_all(self, network_manager):
         if not network_manager.is_online:
-            print("you are offline. Cannot send messages.")
+            if self.message_callback:
+                self.message_callback("You are offline. Cannot send messages.")
             return
         while any(self.queues[p] for p in self.queues):
             self.send_next(network_manager)
