@@ -100,20 +100,7 @@ This project was created as a final-term assignment for a Data Structures course
 
 ---
 
-## 📎 License / مجوز
-MIT License  
-تحت مجوز MIT
-
----
-
-## 🤝 Contributing / مشارکت
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.  
-درخواست‌های pull پذیرفته می‌شوند. برای تغییرات اساسی ابتدا لطفاً یک issue ایجاد کنید.
-
----
-
 ## ✨ Author / نویسنده
-**[Your Name]**  
-[Your GitHub URL]  
+Mr.Amiram 
 Project completed in 2025  
 تکمیل‌شده در سال ۲۰۲۵
